@@ -1,0 +1,1115 @@
+\documentclass[11pt,preprint, authoryear]{elsarticle}
+
+\usepackage{lmodern}
+%%%% My spacing
+\usepackage{setspace}
+\setstretch{1.2}
+\DeclareMathSizes{12}{14}{10}{10}
+
+% Wrap around which gives all figures included the [H] command, or places it "here". This can be tedious to code in Rmarkdown.
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+} {
+    \endorigfigure
+}
+
+\let\origtable\table
+\let\endorigtable\endtable
+\renewenvironment{table}[1][2] {
+    \expandafter\origtable\expandafter[H]
+} {
+    \endorigtable
+}
+
+
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+
+\usepackage{amssymb, amsmath, amsthm, amsfonts}
+
+\def\bibsection{\section*{References}} %%% Make "References" appear before bibliography
+
+
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\usepackage{longtable}
+\usepackage[margin=2.3cm,bottom=2cm,top=2.5cm, includefoot]{geometry}
+\usepackage{fancyhdr}
+\usepackage[bottom, hang, flushmargin]{footmisc}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1.3ex plus 0.5ex minus 0.3ex}
+\usepackage{textcomp}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+\usepackage{array}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+%%%%  Remove the "preprint submitted to" part. Don't worry about this either, it just looks better without it:
+\makeatletter
+\def\ps@pprintTitle{%
+  \let\@oddhead\@empty
+  \let\@evenhead\@empty
+  \let\@oddfoot\@empty
+  \let\@evenfoot\@oddfoot
+}
+\makeatother
+
+ \def\tightlist{} % This allows for subbullets!
+
+\usepackage{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=blue,
+            pdfborder={0 0 0}}
+
+
+% The following packages allow huxtable to work:
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{calc}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{caption}
+
+
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+%%% Include extra packages specified by user
+
+%%% Hard setting column skips for reports - this ensures greater consistency and control over the length settings in the document.
+%% page layout
+%% paragraphs
+\setlength{\baselineskip}{12pt plus 0pt minus 0pt}
+\setlength{\parskip}{12pt plus 0pt minus 0pt}
+\setlength{\parindent}{0pt plus 0pt minus 0pt}
+%% floats
+\setlength{\floatsep}{12pt plus 0 pt minus 0pt}
+\setlength{\textfloatsep}{20pt plus 0pt minus 0pt}
+\setlength{\intextsep}{14pt plus 0pt minus 0pt}
+\setlength{\dbltextfloatsep}{20pt plus 0pt minus 0pt}
+\setlength{\dblfloatsep}{14pt plus 0pt minus 0pt}
+%% maths
+\setlength{\abovedisplayskip}{12pt plus 0pt minus 0pt}
+\setlength{\belowdisplayskip}{12pt plus 0pt minus 0pt}
+%% lists
+\setlength{\topsep}{10pt plus 0pt minus 0pt}
+\setlength{\partopsep}{3pt plus 0pt minus 0pt}
+\setlength{\itemsep}{5pt plus 0pt minus 0pt}
+\setlength{\labelsep}{8mm plus 0mm minus 0mm}
+\setlength{\parsep}{\the\parskip}
+\setlength{\listparindent}{\the\parindent}
+%% verbatim
+\setlength{\fboxsep}{5pt plus 0pt minus 0pt}
+
+
+
+\begin{document}
+
+\begin{frontmatter}  %
+
+\title{The Impact of Changing EU-China Trade Dynamics on South Africa}
+
+% Set to FALSE if wanting to remove title (for submission)
+
+
+
+
+\author[Add1]{Tasmyn Mann}
+\ead{18395139@sun.ac.za}
+
+
+
+
+
+\address[Add1]{Stellenbosch University, Stellenbosch, South Africa}
+
+
+\begin{abstract}
+\small{
+Over the last century, the world has become increasingly interconnected,
+as globalisation has led to the expansion of the traditional market
+place. The result of this interdependence is that domestic economies are
+increasingly affected, both directly and indirectly, by changes in the
+economic position of foreign nations. This paper set out to determine
+which areas of the SA economy are likely to feel the greatest knock on
+affects from changes in trade dynamics between the European Union and
+China. The research paper finds that South Africa, like many emerging
+economies, is most vulnerable to external shock transmission through the
+commodity price channel. As commodities make up the largest proportion
+of SA exports. Further, SA is likely to impacted by any slowdown in
+China's growth, as it is SA's most significant trading partner. Other
+transmission mechanisms include direct trade flows, direct financial
+flows, foreign direct investment and exchange rate adjusment.
+}
+\end{abstract}
+
+\vspace{1cm}
+
+\begin{keyword}
+\footnotesize{
+Trade Dynamics \sep EU \sep China \sep South Africa \sep Spillovers \\ \vspace{0.3cm}
+\textit{JEL classification} 
+}
+\end{keyword}
+\vspace{0.5cm}
+\end{frontmatter}
+
+
+
+%________________________
+% Header and Footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\chead{}
+\rhead{}
+\lfoot{}
+\rfoot{\footnotesize Page \thepage\textbackslash{}}
+\lhead{}
+%\rfoot{\footnotesize Page \thepage\ } % "e.g. Page 2"
+\cfoot{}
+
+%\setlength\headheight{30pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%________________________
+
+\headsep 35pt % So that header does not go over title
+
+
+
+
+\hypertarget{introduction}{%
+\section{\texorpdfstring{Introduction
+\label{Introduction}}{Introduction }}\label{introduction}}
+
+Over the last century, the world has become increasingly interconnected,
+as globalisation has led to the expansion of the traditional market
+place, and the transformation of macroeconomic environments. The result
+of this interdependence is that domestic economies are increasingly
+affected, both directly and indirectly, by changes in the economic
+position of foreign nations. For emerging economies such as South Africa
+(SA), this affect is more evident as changes in SA's largest trading
+partners such as BRICS or the European Union (EU), have a greater long
+run impact on the economy than domestic decision makers. As a primary
+commodity net exporter, SA is particularly susceptible to shocks and
+spill overs from these nations. Therefore, in a rapidly globalising
+society, in order to ascertain future economic prospects of nation, it
+becomes increasingly important to engage with the channels and
+mechanisms through which SA will be affected by external developments.
+This paper focuses on the evolution of trade within South Africa and
+between its two large trading partners, the EU and China. Section 2
+introduces the concept of globalisation and the importance of
+understanding interlinkages between economies. Section 3 provides an
+overview of South Africa's current economic position and details of how
+current trade dynamics have evolved. Section 4 looks at SA's largest
+trading partners as well as its export composition, to provide insight
+on where SA is exposed to risks from foreign developements. Section 5
+and 6 introduce the external environment and focus on the current trade
+position of China and the EU, respectively. Section 7 focuses on the
+trade dynamics between China and South Africa. Section 8 provides
+insights into the channels and mechanisms through which unexpected
+shocks in foreign economies may translate through to SA, specifically,
+focus is placed on direct trade and financial flows, the commodity price
+channel and the exchange rate adjustment channel. Section 9 concludes.
+
+\hypertarget{globalisation}{%
+\section{\texorpdfstring{Globalisation
+\label{Globalisation}}{Globalisation }}\label{globalisation}}
+
+Bhagwati (2010), defines economic globalisation as the integration of
+national economies into the international market through trade.
+Globalisation essentially describes the expansion of the global market
+place, and the increase in trade, capital, and human capital flows, as
+well as investments, across national borders. While the definition of
+globalisation may be disputed, the evidence of increasing
+interdependence cannot (Kastelle et al., 2006). For emerging markets,
+the economic positions of their largest trading partners frequently have
+a greater impact on their economies than domestic decision makers. It is
+important to understand the direct and indirect impact of these changes,
+as well as the magnitude of their affect. The Global Financial Crisis
+(GFC) of 2008/9 exposed some of the negative consequences of
+interconnected markets, as a global recession evolved from an American
+mortgage crisis. The ripple effect of the recession took place through
+multiple channels affecting each economy in a unique way. The GFC was
+followed by a sudden and unprecedented contraction of world trade
+(Baldwin, 2009). This contraction can be explained partially by a
+reduction in the supply of trade finance, as developed nations struggled
+to find the liquidity to sustain previous levels of trade (Freddy et
+al., 2019). This liquidity crunch particularly impacted emerging
+markets, and lead to sudden stops in investment and large reductions in
+exports. In spite of this episode, over the last 50 years, the majority
+of emerging markets have seen significant increases in manufacturing
+export trade, and foreign direct investment (FDI), as a proportion of
+their GDP (Kastelle et al., 2006). In addition, there has been increased
+integration of capital labour markets across borders (Ghemawat, 2003).
+These represent a few of the multitude of channels which expose domestic
+economies to changes in foreign economic positions. All of these
+channels have spill over affects which means changes in capital flows
+and trade dynamics affect a variety of macroeconomic factors such as
+exchange rate volatility and inflation. These examples of economic
+interlinkages all represent channels through which foreign economic
+activity may help or harm a domestic economy. However, the multitude of
+both complementary and opposing forces, in either direction, make this
+discussion incredibly nuanced when analysing even a simple bilateral
+relationship. Therefore, the for the purpose of this paper, focus will
+be placed on the impact of changes in trade dynamics between SA and its
+largest trading partners. While the GFC literature presents examples of
+how economies impact one another in the short term, this paper focuses
+on how south Africa has been, and may be, impacted in the long run.
+
+\hypertarget{south-africas-current-economic-position}{%
+\section{\texorpdfstring{South Africa's Current Economic
+Position\label{SAcurrent}}{South Africa's Current Economic Position}}\label{south-africas-current-economic-position}}
+
+International trade is a major driver of growth in all countries. This
+concept, referred to as the export-led growth hypothesises, has been
+tested extensively in previous literature which finds that in SA,
+exports have a strong and significant positive relationship with real
+growth (Jung and Marshall, 2015). Over the last 5 years SA has
+experienced depressed growth rates, with GDP per capita growth averaging
+around 0\% since 2014 (World Bank, 2019). GDP PC growth has stagnated
+due to population growth rates, and poor economic activity. This
+stagnation can be seen in Figure \ref{Graph1}.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph1-1} 
+
+}
+
+\caption{South Africa - GDP PC 1960-2019 in Constant 2010 US Dollars \label{Graph1}}\label{fig:Graph1}
+\end{figure}
+
+Since the 1960's South Africa's real economic growth has not exceeded
+6\% (Edwards and Lawrence, 2008; Freddy et al., 2019). In 2019, GDP
+growth in SA was estimated to be a mere 0.4\%, which is a 4 percentage
+point decrease from 2018 (World Bank, 2020). GDP growth is expected to
+rise to 0.9\% in 2020, and thereafter to 1.3\%, in 2021 (World Bank,
+2020). However this estimated increase is conditional on policy makers
+following through with planned structural reforms, therefore reducing
+policy uncertainty, as well as, the recovery of public and private
+investment. The World Bank, (2020) predicts that domestic growth will be
+slowed by infrastructure constraints in electricity supply as well as by
+weakened external demand for SA exports (World Bank, 2020). In 2018
+South Africa's GDP, in current US dollar prices, was roughly 366 Billion
+(StatsSA, 2019).
+
+Export expansion, import substitution and international capital
+movements have all been important in the development of SA economy (Mohr
+and Fourie, 2008). International trade accounted for about 60\% of SA
+GDP, indicating that SA has a very open economy and that trade remains
+incredibly important for its growth prospects (Santander, 2018). As of
+2017, it was the 34th largest export economy in the world (Simoes,
+2018). SARS reported that in December of 2019, total exports reached 7.2
+Billion dollars while imports were roughly 6.1 Billion dollars, making
+it a net exporter that month (SARS, 2020). However, Edwards and Lawrence
+(2008), report that since the 1960's, import volumes have been steadily
+increasing compared to export volumes. As, SA fluctuates between being a
+net importer or exporter of goods, changes in trade dynamics in both
+directions are equally important (CEIC, 2020).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph2-1} 
+
+}
+
+\caption{South Africa Exports and Imports  \label{Graph2}}\label{fig:Graph2}
+\end{figure}
+
+Figure \ref{Graph2} indicates the evolution of SA exports and imports
+since 1960. Trade liberalisation in the 1990's dramatically increased
+trade in both directions for SA. Since 2009, SA has seen slow export
+recovery and moderate import recovery. Figure \ref{Graph10} indicates
+that SA fluctuates between a net exporter and net importer. The Figure
+further indicates that SA's trade position is incredibly volatile and
+contingent on external environments.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph10-1} 
+
+}
+
+\caption{South Africa's Net Trade in Goods and Services \label{Graph10}}\label{fig:Graph10}
+\end{figure}
+
+Over 1970 and 1991, real GDP increased by 54\% while the real exchange
+rate was a similar level in both years. Import volumes over this period
+were relatively flat, possibly due to protectionism and political
+sanctions. Non commodity exports were also relatively flat, while non
+gold commodity exports increased steadily. Over this period, world trade
+increase by 90\% and world GDP by 70\%, indicating that comparatively,
+SA did not benefit from globalisation over this time (Edwards and
+Lawrence, 2008). Between 1991 and 2001, import volumes grew by 73\% and
+export volumes by 70\% respectively. Reductions in gold exports volumes
+(by roughly 30\%) were offset by the 50\% increase in exports of other
+commodities and a 200\% increase in non-commodity exports (Edwards and
+Lawrence, 2008). Over this period exports grew by 5.7\% while
+manufacturing exports grew by 7.8\% per year. Trade liberalization in
+1990's played a large role in increased export revenues.
+
+In the early 2000's, productivity growth in commodity exporting
+countries as well as increases in commodity prices, lead to higher
+export revenues which aided in reversing the 20\% decline in
+productivity over the final decade of the Apartheid. SA benefitted from
+substantial investments in commodity production and exploration, as an
+oil and metal exporter (Khan et al., 2016; Schodde, 2013). During this
+period, exports rose as a result of this increased productivity as well
+as from an improvement in policy frameworks, increased trade openness
+and foreign capital inflows resulting from the transition to democracy
+(Du Plessis and Smit, 2007). Between 2000 and 2005 import volumes
+increased dramatically each year, as SA sourced mostly durable goods.
+Automobile imports rose at 23.5\% per year over the period and commodity
+imports by 8\% per annum. In the same period, export growth in both
+commodity and non-commodity goods was slow, however growth exports of
+services averaged 8.6\% (Edwards and Lawrence, 2008).
+
+Since 2008, SA economy has been slowly stagnating, achieving low levels
+of growth as well as underwhelming export revenues. Contractions in the
+mining and manufacturing sector have played a large role in slower
+export revenue growth as the manufacturing sector decline by 8.8\% in
+2019 (World Bank, 2020). Structural change is desperately needed to
+diversify South Africa's revenue stream as its dependence on commodity
+exports have led to increasing exposure to foreign risk.
+
+\hypertarget{trade-partners-and-export-composition}{%
+\section{\texorpdfstring{Trade Partners and Export Composition
+\label{Trade Partners and Export Composition}}{Trade Partners and Export Composition }}\label{trade-partners-and-export-composition}}
+
+South Africa's largest trading partners include China, the United State
+of America, Germany, Japan, India and Saudi Arabia (Santander, 2018). In
+addition, continuing negotiations around the African Continental Free
+Trade Area present an avenue for potential increases in regional trade.
+In terms of exports, South Africa's largest export trading partners are,
+China (17.1B), the USA (8.21B), India (8B), the UK (7.97B) and Germany
+(7.05B), where parenthesis indicate the value of exports in US dollars
+to each nation in 2017 (Simoes, 2018). In terms of imports, China
+(15.6B), Germany (7.23B), the UK (5.49B), India (4.28B) and Saudi Arabia
+(3.89B) represent SA largest import trading partners (Simoes, 2018).
+Clearly China is an incredibly significant trade relationship for SA.
+
+Historically, commodity prices and external commodity demand, have had a
+large impact on SA trade and growth, as it is a major exporter of
+minerals and a large importer of oil. In particular, SA is still heavily
+reliant on gold, diamond, platinum, cars and coal briquettes. These
+items made up for 48.83 Billion dollars of exports in 2017 (Simoes,
+2018). SA predominantly imports crude petroleum, refined petroleum,
+cars, gold and broadcasting equipment. To the value of 21.06 billion
+dollars in 2017. The composition of trade in SA, and its evolution over
+time, indicate the areas in which SA is exposed to external risk and
+foreign developments. A sharper than expected deceleration in major
+trading partners, such as China, the EU, or the US would substantially
+decrease expected export revenues and investment, as these economies
+account for 40\% of the export revenue generated in Sub-Saharan Africa
+(World Bank, 2020). In addition to this exposure, China accounts for one
+half of global metal demand and one quarter of global oil demand,
+therefore an unexpected or fast, slowdown in china's growth, would cause
+a sharp fall in commodity prices. Creating a problematic environment for
+SA export growth. The World Bank predicts slow GDP growth for 2020 and
+2021, stating that weakening external demand particularly from the Euro
+area and China, would deeply impact SA export volume, and that fiscal
+revenues are dependent on these sectors (World Bank, 2020).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph3-1} 
+
+}
+
+\caption{South Africa Export Composition 2017 \label{Graph3}}\label{fig:Graph3}
+\end{figure}
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph4-1} 
+
+}
+
+\caption{South Africa Export Composition 1995 \label{Graph4}}\label{fig:Graph4}
+\end{figure}
+
+Figures \ref{Graph3} and \ref{Graph4}, demonstrate the change in SA's
+export composition over the last 2 decades. The data is sourced from
+World Trade Organisation databases and compiled by the OEC. The figures
+indicate that over the last 20 years SA has managed to reduce its
+dependency on mineral products and metals, however it has become more
+dependent on precious metals, predominantly, gold, diamonds and
+platinum, which made up for 33.3\% of all exports in 2017. The size of
+SA's transortantion export market has significantly increased while the
+exports of animal products, chemical products and foodstuffs has shrunk.
+Figure \ref{Graph4} indicates that SA is still reliant on their
+extractive sectors for exports. Overall, export composition is dominated
+in primary goods, commodities or minerals. The import market is
+dominated largely by manufactured goods and oil (Alence, 2015; Claar,
+2018).
+
+In addition to export cmposition, the history of SA's terms of trade
+give an indication of global economic health, as the index essentially
+reports an economy's international buying power. SA's terms of trade is
+giving in Figure \ref{Graph5}:
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph5-1} 
+
+}
+
+\caption{South Africa's Terms of Trade between 1960 and 2018 \label{Graph5}}\label{fig:Graph5}
+\end{figure}
+
+Terms of trade is an index of the ratio between import and export
+prices. The variable gives an indication how competitive an economies
+trade prices are. Where terms of trade rises, this indicates that
+exports are more expensive and that imports are cheaper, which leads to
+an improvement in living standards. Frequently, a deterioration in the
+terms of trade index is preceeded by a devaluation in the Rand.
+Appreciation in the exchange rate will improve the terms of trade index.
+Since the 1960's, terms of trade in SA has been volatile, where it
+steadily declined between 1980 and 2000 and then rose in the early
+2000's (Edwards and Lawrence, 2008). As commodity prices fall, SA seas a
+deterioration in its terms of trade, this is evident between 2011 and
+2015, where comoddity prices were dropping.
+
+\hypertarget{chinas-current-economic-position}{%
+\section{\texorpdfstring{China's Current Economic Position
+\label{China's Current Economic Position}}{China's Current Economic Position }}\label{chinas-current-economic-position}}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph6-1} 
+
+}
+
+\caption{Growth in GDP 1960-2019 \label{Graph6}}\label{fig:Graph6}
+\end{figure}
+
+Over the last few decades, China growth rates have been astounding. Fast
+and dramatic growth in the East Asian nation has fundamentally changed
+the global dynamics of trade (Woetzel, 2019; Paus et al., 2009). The IMF
+estimated that China's GDP was roughly 14.3 Trillion dollars in 2019
+(IMF, 2020). GDP growth in China has averaged around 6\% in the last 30
+years. However, since the GFC China's debt to GDP ratio has been
+climbing (European Comission, 2015), therefore increasing global
+exposure to Chinese credit risk. Figure \ref{Graph6} provides an
+indication of the major discrepancies in GDP growth rates between China,
+SA and the EU. Export and Import Growth have also significantly grown
+over the last 50 years.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph7-1} 
+
+}
+
+\caption{China Export and Import Growth \label{Graph7}}\label{fig:Graph7}
+\end{figure}
+
+China successfully positioned themselves as an upcoming economic giant
+through favourable trade policies, that stimulated exports and
+production. Chinas interventionist policies such as domestic subsidies
+and exchange rate control have enabled it to control its terms of trade.
+In addition to government intervention China has, over the years,
+negotiated favourable trade deals with most of the major economies,
+gaining low tariff exporting opportunities (Paus et al., 2009). However,
+incredibly high growth rates have been difficult to sustain in recent
+years, given increased global trade tensions. Rising tensions between
+China and the USA administration particularity hampered export growth in
+2017, and slowed down GDP growth to (a still impressive) 6.1\% in 2019
+(World Bank, 2019). Rising tensions broke out into a full trade war in
+2018 which were followed by complicated negotiations as the US attempted
+to strongarm China into changing trade terms (Woetzel, 2019).
+Historically the EU has been an inadvertent beneficiary of US-China
+trade tensions(Satander, 2018). However, in the wake of the trade war,
+Europe capitalised on the opportunity to negotiate more favourable trade
+agreements with China. The expected slowdown in China in 2020, may be
+temporary, if trade deals are being negotiated for economic, rather than
+political reasons. If the US-china trade war is predominantly
+politically motivated to the limitation of China's rise as an economic
+power, then one would expect the tensions to be long lasting and for
+growth to slow over the next few years. This would have a great impact
+on many emerging markets both in Africa and Asia. High export growth has
+only been sustained by ever increasing demand for manufactured goods in
+all regions. The USA and the EU are the largest consumers of these
+goods. As demand for manufactured goods decreases from the trade war or
+alternatively price of imports increases as a response to the trade
+agreement, there will be slower than expected increase in imports in
+China. The rise of China has greatly benefitted SA thus far, however an
+expected slowdown in Chinas growth could impede SA export growth.
+
+\hypertarget{the-european-union}{%
+\section{\texorpdfstring{The European Union
+\label{Europe}}{The European Union }}\label{the-european-union}}
+
+The European Union holds many of the world's major economies such as
+Germany and the United Kingdom. This free trade region creates much of
+the demand for manufactured goods.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph8-1} 
+
+}
+
+\caption{Europe Export and Import Growth \label{Graph8}}\label{fig:Graph8}
+\end{figure}
+
+The EU is another one of SA largest trading partners. Recently SA signed
+the Economic partnership agreement (EU SACD) to replace the trade
+development and cooperation agreement, incentivising freer trade between
+the regions (Mhaka and Jeke, 2018). South Africa's trade relations with
+the Euro Area changed significantly after the Apartheid Era. Between
+1990 and 1994 the abolishment of sanctions meant the EU opened its
+market for industrial products, with the exception of coal and steel,
+under the General System of Preferences (GSP) in September 1994 (Claar,
+2018). The strategic partnership developed after the cold war when there
+was incentives to open trade (Masters and Hiero, 2017). In the early
+1990's trade agreements between the EU and SA were favourable to the
+latter, as the new regime negotiated both developmental and cooperation
+elements as well as a free trade zone. The negotiations resulted in
+regulated duty and tax free exports in the industry and agricultural
+sector. 95\% of goods could be exported to the EU tariff free, while the
+EU could export 86\% of goods tariff free (Grant, 2006). In addition, SA
+negotiated for technical support in policy implementation, as well as
+access to cheap loans and support of financial structures (Meyn, 2003).
+While the imbalance gave SA a significant advantage, overall the
+agreement stimulated trade between the regions and significantly opened
+the markets. As of 2007, SA joined the EU-SADC EPA group which is a
+multilateral trade agreement between the Euro area and Southern African
+economies (Weismann, 2005). The agreement was signed in 2016 to
+negotiate regional integration (Claar, 2018). The EU also has strong
+trade ties to China. Europe is a net importer from China, however there
+is significant bilateral trade in each direction estimated at over 1
+billion Euros per day in 2019. China is the EU's biggest source of
+imports, as well as the second biggest source of exports. While EU-China
+trade relations have been changing, as Europe took a more offensive
+stand in negotiations in 2019. China remains the EU largest supplier of
+industrial and consumer goods such as machinery and equipment, and
+footwear and clothing.
+
+\hypertarget{china-and-sa-trade-dyanmics}{%
+\section{China and SA Trade
+Dyanmics}\label{china-and-sa-trade-dyanmics}}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph9-1} 
+
+}
+
+\caption{Europe Export and Import Growth \label{Graph9}}\label{fig:Graph9}
+\end{figure}
+
+Figure \ref{Graph9} indicates how closely linked global economies have
+become in trade movements. It also shows the large discrepency in the
+manitude of trade between SA and China and the EU. South Africa's
+dependence on China for trade is particularly evident as Chinas net
+trade appears to be a lead to SA's. The same could possibly be argued of
+Europe's and Chinas relationships except for certain periods such as
+2005 and 2010, where China and the EU's trade move in opposite
+directions and where clearly SA net trade movement is predominantly
+affected by Chinas. Since 2008 net trade in SA has been declining,
+frequently facing a trade deficit which is financed either through
+borrowing or savings, to stabilise the economy. As SA trade so closely
+mimics that of Chinas, one can expect any adjustments in Chinas economic
+position to also affect SA similarly.
+
+The trade relationship between China and SA has been developing since
+the establishment of the Peoples Republic of China in 1998. Since this
+time, numerous trade agreements have been negotiated that have
+established a strong bilateral trade agreement between the countries as
+well as opened trade channels between informal groups such as BRICS
+(Grimm et al., 2014). A strategic partnership was declared in 2004 and a
+programme for a deepening strategic partnership was established in June
+2006 (PMG 2010, in Grimm et al.~2014). The formation of BRICS gives SA a
+significant position in continental and even global affairs (Alden and
+Yushan, 2014; Mhaka and Jeke, 2018). BRICS is an intergovernmental
+organization including, Brazil, Russia, India, China and finally South
+Africa after its integration in December 2010. Referring to the GDP
+ranking of countries according to the IMF in 2018, China, the world's
+leading economic power with USD 25 270.07 billion, is at the top of the
+group, followed respectively by India (USD 10 505.29 billion), Russia
+(USD 4 213.40 billion), Brazil (USD 3 365.34 billion) and South Africa
+(USD 789.42 billion). In the case of South Africa, the importance of its
+BRICS membership goes beyond the economic aspect and is rather perceived
+as ``the integration of an association of countries sharing the same
+values attached to their independence and wishing to reform the global
+decision-making structure'' (Shubin, 2015 in Freddy et al., 2019).
+
+The trade relationship between SA and East Asian countries has always
+been strong. In 1990 17\% of SA imports stemmed from East Asian
+countries such as China, Japan and Taiwan. This number increased to 20\%
+in 2009 and has been steadily growing ever since (Mhaka and Jeke, 2018).
+Exports to East Asia over the same time period grew from 13\% to 21\%.
+However, the sudden and dramatic economic growth in China, as well as
+the strong political and economic ties it has to SA, has culminated in
+China being regarded as SA's most important trading partner (DTI, 2010;
+Mhaka and Jeke, 2018). The substantial value of exports and imports
+exchanged between SA and China suggests that SA has become increasingly
+exposed to changes in the Chinese economy. Since 2009 China has been
+SA's largest trading partner but the trade balance is in favour of the
+former (Ensor, 2014; Mhaka and Jeke, 2018). The unique partnership
+operates at a bilateral, continental and multilateral level.
+
+Since the end of the global financial crisis the trade flows between
+China and South Africa have been increasing (Mhaka and Jeke, 2018).
+Exports to China have increased from about R2.7 billion in 2009 to R11.8
+billion in November 2019 (DTI, 2020). Roughly, 90\% of SA's top 10
+exports to China are comprised of raw materials. These exports are
+primarily commodities such as ores, slag and ash, iron and steel, wood
+pulp, gems precious metals and coins, wool, oil, copper, plastics,
+machines engines and pumps, and nickel. SA has an abundance of mineral
+resources (Alden and Yushan, 2014), which China imports as inputs for
+their manufacturing industries. The output from these industries is sold
+back to SA. This bilateral agreement is strengthened by comparative
+advantage that forms the basis of their trade. In many years, SA's
+export performance to China have been fluctuating but remained positive
+except during 2008--2010 as shown by Mhaka and Jeke (2018). The majority
+of SA imports from China stem from the secondary sector where China has
+a comparative advantage. Imports from China are predominantly electronic
+equipment, machines, engines and pumps, footwear , clothing, furniture
+and lighting, iron or steel products and vehicles (Mhaka and Jeke,
+2018).
+
+\hypertarget{multilateral-trade-dynamics-between-sa-china-and-the-eu}{%
+\section{Multilateral Trade Dynamics between SA, China and the
+EU}\label{multilateral-trade-dynamics-between-sa-china-and-the-eu}}
+
+In a globalised society, shocks and spill overs translate among all
+economies. The consequences of an interconnected world can be positive
+or negative. There exists a multitude of complicated linkages between
+these economies, some of which are direct, and easily measured, and
+others which are not simple to quantify. Frequently, the indirect
+impacts are much more substantial than the direct impacts (Kaplinsky et
+al., 2010).
+
+The main channels through which SA is exposed to changes in foreign
+economies are, direct trade flows, direct financial flows, the commodity
+price channel and exchange rate adjustments. In addition they may impact
+SA through the environment, technology transfer and integration of value
+chains or through participation in institutions of regional and global
+governance (Kaplinsky et al., 2010). When analysing how impacts
+translate through these channels, forecasting potential outcomes and the
+magnitude of affect becomes onerous. As the spill over mechanisms are
+sometimes complimentary and other times represent opposing forces. This
+becomes particular difficult when analysing multilateral trade
+agreements. For example, a unexpected stagnation in Chinas growth could
+mean a dramatic decrease in SA's export revenues, and a significant
+depreciation of the Rand as its linked closely to the movements in the
+Yuan. However, if the EU responded to the new sentiment by moving demand
+to Sub-Saharan Africa, then it could result in a large increase in
+imports from SA, which could offset the sudden stop in Chinas demand for
+SA commodities. Therefore, the indirect impacts occur as a result of
+relations with third parties working their way indirectly through to SA.
+As demonstrated, the discussion has a tendency to become overly
+hypothetical, therefore for the purpose of this paper, focus is placed
+on the channels and transmission mechanisms, rather than the prediction
+of potential outcomes. Thus far SA has benefitted greatly from piggy
+backing off Chinas growth, who has in turn achieved their success
+through EU and US demand.
+
+\hypertarget{trade-flows}{%
+\subsection{Trade Flows}\label{trade-flows}}
+
+Firstly, Direct impacts such as trade flows between China and SA are
+clear and easily measured. In trade, the relationship is mostly mutually
+beneficial as SA supplies the commodities China requires for growth and
+China provides SA with cheap consumer and capital goods (Kaplinsky et
+al., 2010) This being said, the relationship only remains complimentary
+if imported goods in SA do not crowd out SA industry, as it strives to
+move away from a primary good export position (Kaplinsky et al., 2010;
+Giovarnetti and Senfilippo, 2016). However, the composition of trade has
+changed over the last 10 years and SA has been exposed to greater risk
+as exports to China are now comprised mainly of raw materials (Ensor,
+2014; Mhaka and Jeke, 2018) This has particularly impacted SA's
+manufacturing sector, which has had slow growth and high unemployment
+rates since its inception (DTI, 2010; Rodrik, 2008). Rapid growth in
+imports from China has been seen to contribute to the
+deindustrialisation of the economy, and forced it to remain as a primary
+commodity exporter (Maia, 2011). Therefore, imports from China may have
+affected the development of SA's manufacturing sector and increased
+imports may continue to do so. In addition, since SA is so reliant on
+China for export revenues, any decrease in demand for primary goods may
+negatively affect SA growth rates. Particularly, if the EU takes a
+strong stance alongside the US for more favourable trade agreements,
+there may be a decrease in demand for SA goods (Edwards and Jenkins,
+2015). On the contrary an increase in demand for Chinas manufactured
+goods from the rest of the world could greatly enhance SA growth
+prospects, if it provides enough export revenue not just to service
+debts but to develop other industries. This is provided that the export
+revenues are high enough for SA to reduce its dependency on primary
+commodities. Indirectly, trade flows may have negatively impacted labour
+intensive industries in SA. However, Edwards and Jenkins (2015), find
+that imports from China tended to raise productivity within industries
+and contributed to lower producer price inflation therefore keeping
+consumer prices lower, as a result of efficiency gains. If the EU
+negotiates trade agreements that cause Chinas export prices to rise, it
+may create an opportunity for SA to develop manufacturing sectors to
+compete with these prices, as SA still has incredibly favourable trade
+deals with the EU. This outcome may give SA the chance to increase local
+production, specifically in industries of strength such as textile
+production.
+
+\hypertarget{financial-flows}{%
+\subsection{Financial Flows}\label{financial-flows}}
+
+Secondly, changes in direct financial flows will impact SA greatly. Over
+40\% of daily trades in the JSE come from foreign investors, and SA is
+still relatively reliant on FDI. Sudden stops in capital will reflect
+negatively on the Current Account as well as in GDP growth. SA is
+susceptible to sudden stops in capital, as investment downgrades
+continue to threaten the stability of the economy in foreign eyes (World
+Bank, 2020). The SARB does not control the outflow of capital from JSE
+investments, meaning sudden stops are likely if SA is downgraded
+(Satander, 2018). Dependency on foreign investment, increases SA
+exposure to foreign shocks. If China struggles to maintain growth, or
+the EU is greatly impacted by Brexit, then over time reduced trade and
+investment would lead to the shrinking of the SA economy (Summers,
+2017). China has over 20 billion dollars' worth of investments in
+Africa, and signed 25 agreements with SA to the value on 16.5 billion
+dollars in 2015, in the hope of creating special economic zones. In
+addition, China pledged a 15 billion dollar investment to SA power
+utilities and infrastructure in 2018. A loss of momentum in Chinese
+investment in Africa would certainly hamper growth prospects. However,
+donations from the EU could easily offset these affects. Financial flows
+between China and the EU are limited by restrictions on cross-border
+financial transactions, investments and banking activities in China.
+Therefore slower Chinese growth is unlikely to impact the EU through the
+financial flows channel (European Commission, 2015). European Banks have
+relatively low direct exposure to China. However European financial
+markets do react significantly to negative news about Chinas economy and
+equity markets, leading to higher volatile in financial flows globally
+(European Commission, 2015). Emerging markets growth prospects have
+weakened leading to significant adjustments in exchange rates, credit
+markets and volatility levels, as these economies are exposed to capital
+flight and balance sheet exposure (World Bank, 2020). Slower Chinese
+growth could trigger a rise in corporate defaults, increasing
+deleveraging pressures and financial market volatility. The EU is
+exposed to these markets as they make up for almost 10\% of EU foreign
+claims. Therefore, if other developing nations impacted negatively by
+problems in China there could be spill over effects affecting European
+banks.
+
+\hypertarget{the-commodity-price-channel}{%
+\subsection{The Commodity Price
+Channel}\label{the-commodity-price-channel}}
+
+Thirdly, the commodity price channel presents a channel through which SA
+is exposed to the greatest risk and also has the potential to reap the
+greatest rewards. It is an important source of world demand particularly
+for metals and energy commodities, which represent a large composition
+of SA exports (European Commission, 2015). Indirect impacts of changes
+in external demand are felt in one dimension through global prices, as
+China is a large player in the price setting game. China's increased
+demand for commodities would raise global prices, which could impact SA
+negatively as a price taker in imports, such as oil, or positively in
+exports such as precious metals. Volatile commodity prices are as a
+result of changes in external demand. Between 2010 and 2015, Chinas
+decrease in demand for metals, let to a 33\% decrease in iron ore prices
+(European Commission, 2015). If China's economy shifts from export-led
+growth to consumption-led growth, then metal commodity prices would
+decrease significantly. As China's slowdown sustains, SA's weak economic
+growth continues to get weaker, after the manufacturing and mining
+sector were negatively affected by dropping commodity prices in 2018
+(World Bank, 2020). China's trade negotiations with SA indirectly impact
+its exposure to African trade agreements as SA is an influential economy
+in Africa. Overall, the nations have successfully realised the
+comprehensive strategic partnership envisaged in 2010 (Alden and Wu,
+2014; Mhaka and Jeke, 2018). Lower commodity prices may lead to downward
+adjustments in the Rand as global capital flows adjust quickly to the
+changing environment. There is also potential for more abrupt
+adjustments in asset prices and global risk premia, if global outlook
+worsens significantly.
+
+\hypertarget{exchange-rate-adjustments}{%
+\subsection{Exchange Rate Adjustments}\label{exchange-rate-adjustments}}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{tradedynamics1_files/figure-latex/Graph11-1} 
+
+}
+
+\caption{Real Effective Exchange Rate in China, SA and the EU \label{Graph11}}\label{fig:Graph11}
+\end{figure}
+
+Lastly, exchange rate adjustment is an obvious consequence of
+interdependence. Weaker real exchange rates reduce imports and stimulate
+exports which leads to inflationary pressure, and in the SA case,
+usually is followed by adjustments from the SARB (Edwards and Lawrence,
+2008). The South African Rand is traded on the ``carry trade'' which is
+a money market where foreign exchange brokers base their valuations on a
+countries economic strength and future prospects. Recently market
+sentiment suggest that the Rand is too weak to invest in. Exchange Rate
+adjustments which are caused partially by changes in trade demand,
+therefore have a spiralling affect, as trade demand reduces, the
+exchange rate devalues, investment drops and the cycle continues. That
+being said Mhaka and Jeke (2018), analyse the bilateral trade agreement
+between China and SA using a Gravity Model and determine that while
+exchange rate volatility impacts trade negatively, it has a limited
+contribution to trade changes. However, if emerging market currencies
+are placed under pressure from slow Chinese growth, then there is likely
+to be negative consequences for the euro. A slowdown in China could have
+limited direct effect on other economies in isolation however, the
+synchronisation of this effect across many smaller economies may lead to
+unexpectedly large adjustments. Asian economies are particular exposed
+to Chinas growth fluctuations which could affect the European financial
+system through indirect channels. A sharper-than-expected slowdown in
+China could therefore lead to an abrupt adjustment in global asset
+markets, as investor risk aversion increases and capital flows reduce.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+Due to the scale and structure of the trade linkage between SA and
+China, any significant and negative adjustment in China's economic
+position is likely to negatively impact SA growth prospects. This
+exposure to China, could also serve as a benefit, as the linkages have
+historically led to South Africa piggy backing off China's success.
+Direct trade linkages make SA exposed export revenue fluctuations and
+import price fluctuations. Trade may be greatly affected indirectly,
+through trade with other emerging economies that have strong links to
+China. SA is also exposed to FDI and investment fluctuations from both
+China and the EU. Increased financial market volatility may arise as a
+result of negative spill overs into other emerging markets if China's
+slow down persists. The strongest impact, that changes in China-EU trade
+relations would have on SA, is through commodity price volatility.
+Commodity price volatility strongly impacts demand for SA's main export
+products, however lower commodity prices are beneficial for the European
+economy. If SA can reduce its dependence on commodity exports then EU
+demand for goods could offset the negative impact on commodity trade.
+This could also take place through the exchange rate adjustment channel
+as downward pressure on the rand leads to an appreciation of the Euro
+making SA exports more attractive.
+
+\newpage
+
+\hypertarget{bibliography}{%
+\section{Bibliography}\label{bibliography}}
+
+Alden, C. and Wu, Y., 2014. South Africa-China Relations: Evolving
+Cooperation, Collaboration and Competition.
+
+Alence, R., 2015. Democratic Trajectories in Africa: Unravelling the
+Impact of Foreign Aid. Edited by Danielle Resnick and Nicolas van de
+Walle. WIDER Studies in Development Economics. Oxford University Press,
+Oxford. 2013. xvi+ 310 pp.~Hbk£ 60.00. Economica, 82(327), pp.587-588.
+
+Baldwin, R.E. ed., 2009. The great trade collapse: Causes, consequences
+and prospects. Cepr.
+
+Bhagwati, J., 2010. Banned aid: Why international assistance does not
+alleviate poverty.
+
+CEIC Data. 2020. South Africa Total Exports {[}2004 - 2020{]} {[}Data \&
+Charts{]}. {[}online{]} Available at:
+\url{https://www.ceicdata.com/en/indicator/south-africa/total-exports}
+{[}Accessed 4 Feb.~2020{]}. Claar, S., 2018. International Trade Policy
+and Class Dynamics in South Africa. Editor Timothy M. Shaw
+
+DTI, 2010, Industrial policy action plan: Economic sectors and
+employment cluster, IPAP, South Africa, pp.~43-59.
+
+Du Plessis, S. and Smit, B., 2007. South Africa's growth revival after
+1994. Journal of African economies, 16(5), pp.668-704.
+
+Dube, S.S., 2014. The impact of exchange rate volatility on
+international trade between South Africa, China and USA: The case of the
+manufacturing sector (Doctoral dissertation, University of
+Johannesburg).
+
+Edwards, L. and Jenkins, R., 2015. The impact of Chinese import
+penetration on the South African manufacturing sector. The Journal of
+Development Studies, 51(4), pp.447-463.
+
+Edwards, L. and Jenkins, R.O., 2014. The competitive effects of China on
+the South African manufacturing sector. Development Policy Research
+Unit, University of Cape Town.
+
+Edwards, L. and Lawrence, R., 2008. South African trade policy matters
+Trade performance and trade policy. Economics of Transition, 16(4),
+pp.585-608.
+
+Ensor, L., 2014, Bilateral trade with China on the increase, viewed 21
+June 2015, from
+
+European Commission. 2015. European Economic Forecast. Luxembourg:
+Publications Office of the European Union, pp.53-57.
+
+Freddy, V., Bidoley, A., Sylvestre, A.Y., Aleksandrovich, S.S. and
+Viktorovna, S.N., 2019. Brazil and South Africa: The Weak Links of the
+BRICS. J. Pol. \& L., 12, p.15.
+
+Gani, A., 2017. The logistics performance effect in international trade.
+The Asian Journal of Shipping and Logistics, 33(4), pp.279-288.
+
+Ghemawat, P., 2003. The forgotten strategy. Harvard business review,
+81(11), pp.76-84.
+
+Giovannetti, G. and Sanfilippo, M., 2016. Do Chinese exports crowd-out
+African goods? An econometric analysis by country and sector. In The
+Power of the Chinese Dragon (pp.~10-41). Palgrave Macmillan, London.
+
+Grant, J.H. and Meilke, K.D., 2006. The World Trade Organization special
+safeguard mechanism: a case study of wheat. Review of Agricultural
+Economics, 28(1), pp.24-47.
+
+Grimm, S., 2014. China--Africa Cooperation: promises, practice and
+prospects. Journal of Contemporary China, 23(90), pp.993-1011.
+
+Grimm, S., Kim, Y., Anthony, R., Attwell, R. \& Xioo, X., 2014, South
+African relations with China and Taiwan: Economic realism and the
+one-China doctrine, viewed 23 June 2015, from
+
+Jenkins, R. and Edwards, C., 2006. The economic impacts of China and
+India on sub-Saharan Africa: Trends and prospects. Journal of Asian
+Economics, 17(2), pp.207-225.
+
+Jenkins, R., Peters, E.D. and Moreira, M.M., 2008. The impact of China
+on Latin America and the Caribbean. World Development, 36(2),
+pp.235-253.
+
+Jung, W.S. and Marshall, P.J., 1985. Exports, growth and causality in
+developing countries. Journal of development economics, 18(1), pp.1-12.
+
+Kaplinsky, R. and Messner, D., 2008. Introduction: The impact of Asian
+drivers on the developing world. World Development, 36(2), pp.197-209.
+
+Kaplinsky, R., McCormick, D. and Morris, M., 2007. The impact of China
+on sub-Saharan Africa.
+
+Kaplinsky, R., McCormick, D. and Morris, M., 2010. China and Sub Saharan
+Africa: impacts and challenges of a growing relationship.
+
+Kastelle, T., Steen, J. and Liesch, P., 2006, June. Measuring
+globalisation: an evolutionary economic approach to tracking the
+evolution of international trade. In DRUID Summer Conference on
+Knowledge, Innovation and Competitiveness: Dynamics of Firms, Networks,
+Regions and Institutions-Copenhagen, Denmark, June (pp.~18-20).
+
+Maia, J., Giordano, T., Kelder, N., Bardien, G., Bodibe, M., Du Plooy,
+P., Jafta, X., Jarvis, D., Kruger-Cloete, E., Kuhn, G. and Lepelle, R.,
+2011. Green jobs: An estimate of the direct employment potential of a
+greening South African economy. Industrial Development Corporation,
+Development Bank of Southern Africa, Trade and Industrial Policy
+Strategies.
+
+Masters, L. and Hierro, L., 2017. Ten years of the EU--South Africa
+Strategic Partnership. South African Journal of International Affairs,
+24(2), pp.113-114.
+
+Meyn, M., 2003. The TDCA and the Proposed SACU-USA FTA: Are Free Trade
+Agreements with Industrialised Countries Beneficial for SACU?. Nepru.
+
+Mhaka, S. and Jeke, L., 2018. An evaluation of the trade relationships
+between South Africa and China: An empirical review 1995-2014. South
+African Journal of Economic and Management Sciences, 21(1), pp.1-15.
+
+Mohr, P.F. and Fourie, L., L. and Associates.(2008). Economics for South
+African students, 4th ed. Van Schaik: Pretoria.
+
+Muteba Mwamba, J. and Dube, S., 2014. The impact of exchange rate
+volatility on international trade between South Africa, China and USA:
+The case of the manufacturing sector.
+
+Osei-Hwedie, B.Z., 2012. The dynamics of China-Africa cooperation. Afro
+Asian Journal of Social Sciences, 3(3.1), pp.1-25.
+
+Paus, E., Prime, P. and Western, J., 2009. Global giant: is China
+changing the rules of the game?. Springer.
+
+Rodrik, D., 2008. One economics, many recipes: globalization,
+institutions, and economic growth. Princeton University Press.
+
+Santandar Trade Markets. (2018). South Africa Foreign Trade in Figures.
+{[}online{]} Available at:
+\url{https://santandertrade.com/en/portal/analyse-markets/south-africa/foreign-trade-in-figures?\&actualiser_id_banque=oui\&id_banque=0\&memoriser_choix=memoriser}
+{[}Accessed 3 Feb.~2020{]}.
+
+Schodde, R.C., 2013. The impact of commodity prices and other factors on
+the level of exploration. Centre for Exploration Targeting, University
+of Western Australia: Perth, Australia.
+
+Shambaugh, D.L., 2013. China goes global: The partial power (Vol. 409).
+Oxford: Oxford University Press.
+
+Simoes, A. 2020. OEC - South Africa (ZAF) Exports, Imports, and Trade
+Partners. {[}online{]} OEC. Available at:
+\url{https://oec.world/en/profile/country/zaf/\#Exports} {[}Accessed 1
+Feb.~2020{]}. Statssa.gov.za. (2020). GDP in the second quarter of 2019
+increased by 3,1\% \textbar{} Statistics South Africa. {[}online{]}
+Available at: \url{http://www.statssa.gov.za/?p=12482} {[}Accessed 4
+Feb.~2020{]}.
+
+Summers, T., 2017. Brexit: Implications for EU--China Relations. Chatham
+House: Royal Institute of International Affairs.
+
+Weisman, D.L., 2005. Assessing Market Power: The Trade-off Between
+Market Concentration and Multi-Market Participation. Journal of
+Competition Law and Economics, 1(2), pp.339-354.
+
+Woetzel, J., 2019. China and the world: Inside the dynamics of a
+changing relationship.
+
+World Bank. 2020. Overview. {[}online{]} Available at:
+\url{https://www.worldbank.org/en/country/southafrica/overview\#1}
+{[}Accessed 3 Feb.~2020{]}.
+
+World Bank. 2020. Global Economic Prospects, January 2020 : Slow Growth,
+Policy Challenges. Washington, DC: World Bank. © World Bank.
+\url{https://openknowledge.worldbank.org/handle/10986/33044} License: CC
+BY 3.0 IGO.
+
+Zafar, A., 2007. The growing relationship between China and Sub-Saharan
+Africa: Macroeconomic, trade, investment, and aid links. The World Bank
+Research Observer, 22(1), pp.103-130.
+
+Zaman, K., bin Abdullah, A., Khan, A., bin Mohd Nasir, M.R., Hamzah,
+T.A.A.T. and Hussain, S., 2016. Dynamic linkages among energy
+consumption, environment, health and wealth in BRICS countries: green
+growth key to sustainable development. Renewable and Sustainable Energy
+Reviews, 56, pp.1263-1271.
+
+% Force include bibliography in my chosen format:
+
+\bibliographystyle{Tex/Texevier}
+\bibliography{Tex/ref}
+
+
+
+
+
+\end{document}

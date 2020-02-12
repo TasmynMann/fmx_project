@@ -1,0 +1,387 @@
+---
+title: "README"
+author: "Tasmyn Mann"
+date: "11/02/2020"
+output: html_document
+---
+# Purpose
+This document will outline the steps 
+I have taken in order to create the fantastic graphs in my 
+descriptive paper on changing EU-China trade dynamics and 
+their impact on South Africa.
+
+The final paper can be found under "tradedynamics1.pdf"
+
+#Data
+The following data was adapted from the World Bank 
+national accounts data and the OECD national accounts data file
+from the World Development Inidcators
+from: https://datacatalog.worldbank.org/public-licenses#cc-by
+All data is recorded anually
+1.Exports of goods and services (% of GDP)
+2.Imports of goods and services (% of GDP)
+3. GDP Per Capita in constant 2010 US dollars
+4. Net Trade in goods and services (Bop, current US$)
+5. Terms of Trade adjustment in constant LCU 
+6. Average annual GDP growth rates
+
+The Real Effective Exchange Rate data was adapted from 
+Quantec EsayData froom the Main Economic Indicators database
+All data is recorded quarterly 
+The REER is an index with 2015 as the base year 
+
+#Required packages 
+```{r load packages}
+if (!require("dplyr")) install.packages("dplyr")
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("Stan125/GREA" )
+install.packages("ggplot2") 
+install.packages("rlang")
+install.packages("lubridate")
+install.packages("glue")
+install.packages("tidyverse")
+install.packages("ggthemes")
+install.packages("ggsci")
+install.packages("rmsfuns")
+install.packages("magick")
+install.packages("ggrepel")
+install.packages("RColorBrewer")
+install.packages("ggpubr")
+install.packages("readr")
+library(dplyr)
+library(devtools)
+library(ggplot2)
+library(rlang)
+library(lubridate)
+library(rmsfuns)
+library(glue)
+library(ggthemes)
+library(tidyverse)
+library(ggthemes)
+library(ggsci)
+library(magick)
+library(ggrepel)
+library(RColorBrewer)
+library(ggpubr)
+library(readr)
+```
+
+#Importing the Datasets
+```{r data}
+TradeData1 <- read.csv(file = "./data/TradeData1.csv") 
+nt <- read.csv("./data/nt.csv")  
+reer <- read.csv("./data/reer.csv")
+tot <- read.csv("./data/tot.csv")
+```
+
+#Creating a theme for Graphs and expanding colour palette
+```{r colour}
+{#Setting Graph Theme
+My_Theme = theme(
+  axis.title.x = element_text(size = 10),
+  axis.text.x = element_text(size = 7),
+  axis.text.y = element_text(size = 7),
+  axis.title.y = element_text(size = 10))
+
+# Define number of colors
+nb.cols <- 10
+mycolors <- colorRampPalette(brewer.pal(8, "Paired"))(nb.cols)
+}
+```
+
+# Graph 1 - South Africas GDP PC
+
+```{r GDPPC}
+{#Isolate South Africa GDP PC from Tradedata1 dataset 
+SA.GDPPC <- TradeData1 %>% 
+  filter(COUNTRY == "SA", SERIES=="GDP PC (constant 2010 US$)", !is.na(VALUE))
+
+SA.GDPPC.G <- ggplot(data=SA.GDPPC) +geom_line(aes(x=DATE, y=VALUE) ,colour="deepskyblue4")+
+  labs(x="Time", y="US$ (thousands)", caption="Data Source: World Bank and OECD Data", title ="South Africa GDP Per Capita")+
+  scale_x_continuous(breaks = seq(1960, 2020, by = 5)) +
+  scale_y_continuous(breaks = seq(4500, 8000, by = 500))+
+  My_Theme+
+  annotate("rect", fill = "darkgrey", alpha = 0.5, 
+           xmin = 2008, xmax = 2020,
+           ymin = -Inf, ymax = Inf) 
+print(SA.GDPPC.G)
+}
+```
+
+# Graph 2 - South Africa's Imports and Exports as % of GDP
+
+```{r SA.EX&IM}
+{#Filter data to isolate SA exports and imports 
+  TradeData1 %>% filter(COUNTRY=="SA") %>% distinct(SERIES)
+
+  target <- c("EX (% of GDP)" , "IM (% of GDP)")
+  SA.Trade <- TradeData1 %>% 
+    filter(COUNTRY == "SA" , SERIES %in% target, !is.na(VALUE))
+  
+  #Graph 2 - Create Graph for SA International Trade 
+  SA.Trade.G <- ggplot(data=SA.Trade)+ 
+    geom_line(aes(x=DATE, y=VALUE, colour=SERIES), size=0.5)+
+    theme(plot.title = element_text(hjust=0.5), axis.text.x =element_text(angle=90,hjust=1), legend.position = "bottom")+
+    labs(x="Time", y="% of GDP" ,title="South Africa - Exports and Imports as % GDP", 
+         caption = "Data Source : World Bank Data")+
+    scale_x_continuous(breaks = seq(1960, 2020, by = 5)) +
+    scale_y_continuous(breaks = seq(15, 40, by = 5))+
+    scale_fill_manual(values = mycolors)+
+    My_Theme
+  print(SA.Trade.G)}
+```
+
+#Graph 3 - South Africas Net Trade 
+
+```{r SAnettrade}
+{#Isolate Net Trade into a dataset
+  target7 <- c("SA NT")
+  ntsa.df <- nt %>% 
+    filter(codes %in% target7, !is.na(values))
+  #create new column to work with smaller y values on the graph 
+  ntsa.df$v <- as.numeric(as.character(ntsa.df$values)) / 100
+  #create net trade graph 
+  ntsa.G <- ggplot(data= ntsa.df[which(ntsa.df$dates>"1995"),])+ #data only begins in 1995
+    geom_line(aes(x=dates, y=v), colour="deepskyblue4")+
+    labs(x="Time", y="Billions (US$)" ,title="South Africa - Net Trade in Goods and Services", 
+         caption = "Data Source : World Bank and OECD Data")+
+    scale_x_continuous(breaks = seq(1996, 2020, by = 2)) +
+    scale_y_continuous(breaks = seq(-10000, 5000, by = 2000))+
+    scale_fill_manual(values = "deepskyblue4")+
+    geom_hline(yintercept=0, colour="darkgrey")
+  My_Theme
+  ntsa.G <- ntsa.G + guides(fill=guide_legend(title="Country"))#change legend title
+  print(ntsa.G)
+}
+```
+
+#Graph 4 - SA Export composition 2017
+
+```{r SA Export Comp 2017}
+  {
+    #create the data frame from OEC Data 
+  ExportComp <- data.frame(
+  Catergory = c("Precious Metals", "Mineral Products", "Metals",
+                "Transportation", "Machines", "Chemical Products",
+                "Vegetable Products", "Foodstuffs","Animal Products","Other"),
+  Composition = c(34, 19, 11, 10, 5.6, 4.9, 4.7, 2.6, 1.5, 6.7)
+)
+head(ExportComp)
+
+#Labels and cumsum for pie chart
+ExportComp <- ExportComp %>%
+  arrange(desc(Catergory)) %>%
+  mutate(lab.ypos = cumsum(Composition) - 0.5*Composition)
+ExportComp
+
+  #creating Pie Chart on ggplot
+ggplot(data=ExportComp, 
+       aes(x="", y= Composition ,fill = Catergory))+
+  geom_bar(width = 1, stat="identity")+
+  coord_polar("y" , start=0) +
+  geom_text(x=1.6, aes(y=lab.ypos, label = paste0(Composition, "%")),
+            col="black") +
+  scale_fill_manual(values = mycolors)+
+  theme_void()+
+  labs(fill="Catergory", x=NULL, y=NULL, title="South Africa's Export Goods Composition (2017)",
+       axis.text.x = element_text(size = 2))
+}
+```
+
+#Graph 5 - Export Composition 1995
+
+```{r SA Export Comp 1995}
+ {
+#create 1995 data frame 
+   ExportComp1995 <- data.frame(
+  Catergory1 = c("Precious Metals", "Mineral Products", "Metals",
+                 "Transportation", "Machines", "Chemical Products",
+                 "Vegetable Products", "Foodstuffs","Animal Products","Other"),
+  Composition1 = c(12, 23, 20, 2.9, 6, 5.8, 6.8, 5.3, 3.1, 15.1)
+)
+head(ExportComp1995)
+
+ExportComp1995 <- ExportComp1995 %>%
+  arrange(desc(Catergory1)) %>%
+  mutate(lab.ypos = cumsum(Composition1) - 0.5*Composition1)
+ExportComp1995
+
+ggplot(data=ExportComp1995, 
+       aes(x="", y= Composition1 ,fill = Catergory1))+
+  coord_polar("y" , start=0) +
+  geom_text(x=1.6, aes(y=lab.ypos, label = paste0(Composition1, "%")),
+            col="black") +
+  geom_bar(width = 1, stat="identity")+
+  scale_fill_manual(values = mycolors)+
+  theme_void()+
+  labs(fill="Catergory1", x=NULL, y=NULL, title="South Africa's Export Goods Composition (1995)",
+       axis.text.x = element_text(size = 2))
+}
+```
+
+Graph 6-  South Africa Terms of Trade 
+
+```{r SA TOT}
+ {
+#replacing N/A values with 0
+tot[is.na(tot)] = 0
+#Graph
+tot.G <- ggplot(data=tot) +geom_line(aes(x=YEAR, y=TOT) ,colour="deepskyblue4")+
+  labs(x="Time", y="LCU (Billions)", caption="Data Source: World Bank and OECD Data", title ="South Africa - Terms of Trade")+
+  scale_x_continuous(breaks = seq(1960, 2020, by = 10)) +
+  scale_y_continuous(breaks = seq(-200, 200, by = 50))+
+  scale_fill_manual(values = mycolors)+
+  geom_hline(yintercept=0, colour="darkgrey")+
+  My_Theme
+print(tot.G)
+}
+```
+
+#Graph 7 - GDP Growth for all 3 regions
+
+```{r GDP Growth}
+ {
+#GDP Growth Graph 
+target5 <- c("SA GDP G", "CHN GDP G", "EU GDP G")
+gdp.df <- nt %>% 
+  filter(codes %in% target5, !is.na(values))
+
+gdpg.G <- ggplot(data= gdp.df[which(gdp.df$dates>"1970"),])+ 
+  geom_line(aes(x=dates, y=values, colour=codes), size=0.5)+
+  theme(plot.title = element_text(hjust=0.5), 
+        axis.text.x = element_text(angle=90,hjust=1),
+        legend.position = "bottom")+
+  labs(x="Time", y="GDP Growth (%)" ,title="Average Annual Growth", 
+       caption = "Data Source : World Bank and OECD Data")+
+  scale_x_continuous(breaks = seq(1960, 2020, by = 5)) +
+  scale_fill_manual(values = mycolors)+
+  My_Theme
+gdpg.G <- gdpg.G + guides(fill=guide_legend(title="Country"))
+print(gdpg.G) 
+}
+```
+
+Graph 8 - Chinas Exports and Imports 
+
+```{r China Ex and Im}
+ {
+#Isolate Imports and Exports for China
+target1 <- c("EX (% of GDP)" , "IM (% of GDP)")
+CHN.Trade <- TradeData1 %>% 
+  filter(COUNTRY == "CHN" , SERIES %in% target1, !is.na(VALUE))
+
+#Create Graph for China International Trade 
+CHN.Trade.G <- ggplot(data=CHN.Trade)+ 
+  geom_line(aes(x=DATE, y=VALUE, colour=SERIES), size=0.5)+
+  theme(plot.title = element_text(hjust=0.5), axis.text.x =element_text(angle=90,hjust=1), legend.position = "bottom")+
+  labs(x="Time", y="% of GDP" ,title="China - Exports and Imports as % GDP", 
+       caption = "Data Source : World Bank")+
+  scale_x_continuous(breaks = seq(1960, 2020, by = 5)) +
+  scale_y_continuous(breaks = seq(0, 40, by = 5))+
+  scale_fill_manual(values = mycolors)+
+  My_Theme
+print(CHN.Trade.G)
+}
+```
+
+#Graph 9 - EU Imports and Exports
+```{r EU Ex and Im}
+ {
+#Filter Data to isolate Europe exports and imports
+target2 <- c("EX (% of GDP)" , "IM (% of GDP)")
+EU.Trade <- TradeData1 %>% 
+  filter(COUNTRY == "EU" , SERIES %in% target2, !is.na(VALUE))
+
+#Create Graph for EU International Trade 
+EU.Trade.G <- ggplot(data=EU.Trade)+ 
+  geom_line(aes(x=DATE, y=VALUE, colour=SERIES), size=0.5)+
+  theme(plot.title = element_text(hjust=0.5), axis.text.x =element_text(angle=90,hjust=1), 
+        legend.position = "bottom")+
+  labs(x="Time", y="% of GDP" ,title="EU - Exports and Imports as % GDP", 
+       caption = "Data Source : World Bank")+
+  scale_x_continuous(breaks = seq(1960, 2020, by = 5)) +
+  scale_y_continuous(breaks = seq(0, 50, by = 5))+
+  scale_fill_manual(values = mycolors)+
+  My_Theme
+print(EU.Trade.G)
+}
+```
+
+#Graph 10 - Net Trade of all 3 regions 
+
+```{r Net Trade EU SA and China}
+ {
+#Create Graph Net Trade 
+target4 <- c("EU NT", "CHN NT", "SA NT")
+nt.df <- nt %>% 
+  filter(codes %in% target4, !is.na(values))
+
+nt.df$v <- as.numeric(as.character(nt.df$values)) / 100
+
+nt.G <- ggplot(data= nt.df[which(nt.df$dates>"1995"),])+ 
+  geom_line(aes(x=dates, y=v, colour=codes), size=0.5)+
+  theme(plot.title = element_text(hjust=0.5), 
+        axis.text.x = element_text(angle=90,hjust=1),
+        legend.position = "bottom")+
+  labs(x="Time", y="Net Trade (millions US$)" ,title="Net Trade - Goods and Services", 
+       caption = "Data Source : World Bank and OECD Data")+
+  scale_x_continuous(breaks = seq(1995, 2020, by = 5)) +
+  scale_fill_manual(values = mycolors)
+nt.G <- nt.G + guides(fill=guide_legend(title="Country"))
+print(nt.G)
+}
+```
+
+#Graph 11- Real Effective Exchange Rates 
+
+```{r REER}
+ {
+#change the date column as its quarterly data
+   reer$date <- as.Date(as.character(reer$date))
+target8 <- c("EU REER", "CHN REER", "SA REER")
+reer.df <- reer %>% 
+  filter(code %in% target8, !is.na(rate))
+
+reer.G <- ggplot(data = reer.df)+ 
+  geom_line(aes(x=date, y=rate, colour=code), size=0.5)+
+  theme(plot.title = element_text(hjust=0.5), 
+        axis.text.x = element_text(angle=90,hjust=1),
+        legend.position = "bottom")+
+  labs(x="Time", y="REER (%)" ,title="Real Effective Exchange Rate", 
+       caption = "Data Source : Quantec")+
+  scale_y_continuous(breaks = seq(60, 160, by = 20)) +
+  scale_fill_manual(values = mycolors)+
+  My_Theme
+print(reer.G)
+}
+```
+
+Graph 12 - Alternative REER Graph 
+```{r REER2}
+ {
+#Graph REER 
+reer.sa <- reer %>% 
+  filter(code == "SA REER")
+reer.sa$date <- as.Date(as.character(reer.sa$date))
+reer.sa.G <- ggplot(data=reer.sa) +geom_line(aes(x=date, y=rate, group=1) ,colour="deepskyblue4")+
+  labs(x="Time", y="REER(%)")
+print(reer.sa.G)
+
+reer.chn <- reer %>% 
+  filter(code == "CHN REER")
+reer.chn$date <- as.Date(as.character(reer.chn$date))
+reer.chn.G <- ggplot(data=reer.chn) +geom_line(aes(x=date, y=rate, group=1) ,colour="deepskyblue4")+
+  labs(x="Time", y="REER (%)")
+print(reer.chn.G)
+
+reer.eu <- reer %>% 
+  filter(code == "EU REER")
+reer.eu$date <- as.Date(as.character(reer.eu$date))
+reer.eu.G <- ggplot(data=reer.eu) +geom_line(aes(x=date, y=rate, group=1) ,colour="deepskyblue4")+
+  labs(x="Time", y="REER (%)")
+print(reer.eu.G)
+
+ggarrange(reer.sa.G, reer.chn.G, reer.eu.G, ncol = 3, labels = c("SA", "CHINA", "EU")) 
+}
+```
+
